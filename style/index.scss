@@ -1,0 +1,245 @@
+@import "config/normalize";
+@import "config/property.scss";
+@import "config/variables.scss";
+@import "config/mixin.scss";
+
+// @include font-face(light,'fonts/light.eot','fonts/light.woff','fonts/light.ttf')
+
+@font-face {
+  font-family: 'light';
+  src: url("../fonts/light.eot") , url("../fonts/light.woff"), url("../fonts/light.ttf") ; 
+}
+
+*{
+	@include  box-sizing(border-box);
+	// @include box-shadow(0,2px,3px,rgba(0,0,0,.4));
+	@include transition(background-color 200ms)
+	outline: 0;
+}
+
+
+body{
+	background-color: $containerBgColor;
+
+	
+    font: 16px/1.5 "Microsoft YaHei",Tahoma,"simsun",sans-serif;
+    
+}
+
+.animated {
+  animation-duration: 500ms;
+  animation-fill-mode: both;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInDown {
+  animation-name: slideInDown;
+}
+
+
+.msg{
+	display: none;
+	text-align: center;
+	background-color: $addBtnColor;
+	padding: 10px;
+}
+.container{
+	max-width: 900px;
+	margin: 0 auto;
+	position: relative;
+
+	h1{
+		text-align: center;
+		color: #fff;
+		font-family: 'light';
+	}
+}
+
+%publicRPset{
+	@include border-radius(3px);
+	padding: 10px;
+}
+
+%publicBset{
+	border: 0;
+}
+
+.task-list{
+
+	margin: 10px 0;
+	.task-item{
+		background-color: $defaultColorW;
+		color: $itemFontColor;
+		margin-bottom:2px;
+		@extend %publicRPset;
+		@include box-shadow(0,2px,3px,rgba(0,0,0,.4));
+		// @include transition(background-color 200ms)
+		cursor: pointer;
+		
+		&:hover{
+			background-color: $itemHoverColor;
+		}
+	}
+
+	.operate{
+		font-size: 90%;
+		color: $operateColor;
+		margin-left:10px;
+
+		&:hover{
+			color: $itemFontColor;
+		}
+	}
+
+
+}
+
+.task-item{
+	.select{
+		input {
+			vertical-align: middle;
+		}
+	}
+
+	.task-content{
+		margin-left: 10px;
+		position: relative;
+	}
+
+	&.complete{
+		background-color: $itemDoneColor;
+		&:hover{
+				background-color: #50d698 !important;
+		}
+
+		.task-content{
+			
+
+			&:after{
+				content:"";	
+				height: 2px;
+				background-color: $defaultColorW;
+				width: 100%;
+				position: absolute;
+				top: 8px;
+				display: block;
+				left: 0;
+			}
+
+			
+			
+		}
+	}
+}
+
+input{
+	@extend %publicRPset;
+}
+
+
+button{
+	@extend %publicRPset;
+	@extend %publicBset;
+	display: inline-block;
+	cursor: pointer;
+}
+
+input[type=text],input[type=date],textarea{
+	@extend %publicBset;
+	display: block;
+	width: 100%;
+	background-color: $inputBgColor;
+	@include box-shadow(0,1px,2px,rgba(0,0,0,.3),inset);
+	&:hover,&:focus{
+		background-color: $itemHoverColor;
+		@include box-shadow(0,1px,2px,rgba(0,0,0,.2),inset);
+	}
+}
+
+
+.add-task{
+	input[type=text]{
+		float: left;
+		width: 84%;
+		margin-right: 1%;
+	}
+
+	button[type=submit]{
+		background-color: $addBtnColor;
+		color: $itemFontColor;
+		width: 15%;
+		@include box-shadow(0,2px,3px,rgba(0,0,0,.4));
+
+		&:hover{
+			background-color: $addBtnHoverColor;
+		}
+	}
+	
+}
+
+.task-detail,.task-detail-mask{
+	position: absolute;
+	display: none;
+}
+
+.task-detail{
+	position: fixed;
+	@extend %publicRPset;
+	@include box-shadow(0,2px,3px,rgba(0,0,0,.4));
+	width: 400px;
+	height: 400px;
+	left: 50%;
+	top: 50%;
+	margin-left: -200px;
+	margin-top: -200px;
+
+	background-color: $defaultColorW;
+	color: $itemFontColor;
+	
+	*{
+		margin-bottom: 10px;
+	}
+
+	.content{
+		padding: 10px;
+		font-weight: bold;
+		cursor: pointer;
+	}
+
+	textarea{
+		height: 200px;
+		resize: none; 
+		padding: 10px;
+	}
+}
+
+
+.task-detail-mask{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	top: 0;
+	background-color: rgba(30,30,30,.3);
+	@extend %publicRPset;
+}
+
+.pop-box{
+	@include border-radius(3px);
+	@include box-shadow(0,1px,2px,rgba(0,0,0,.6));
+	
+	.confirm{
+		background-color: $containerBgColor;
+	}
+}
+

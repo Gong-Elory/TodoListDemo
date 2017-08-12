@@ -1,0 +1,46 @@
+@mixin css3-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+     -moz-#{$property}: #{$value};
+      -ms-#{$property}: #{$value};
+          #{$property}: #{$value};
+}
+
+@mixin border-radius($radius: 0px){
+	@include css3-prefix('border-radius',$radius)
+}
+
+@mixin box-shadow($x,$y,$blur,$color,$inset:''){
+	@if($inset != ""){
+		@include css3-prefix('box-shadow',$inset $x $y $blur $color)
+		
+	}
+	@else{
+		@include css3-prefix('box-shadow',$x $y $blur $color)
+	}
+}
+
+@mixin transition($properties...){
+	@if length($properties) >= 1{
+		@include css3-prefix('transition',$properties);
+	}
+
+	@else{
+		@include css3-prefix('transition',"all 0.2s ease-in-out 0s");
+	}
+}
+
+@mixin box-sizing($prop){
+	@include css3-prefix('box-sizing',$prop);
+}
+
+@mixin font-face($fontFamily:myFont,$eotFileSrc:'myFont.eot',$woffFileSrc:'mfFont.woff',$ttfFileSrc:'myFont.ttf',$svgFileSrc:'myFont.svg',$svgFontID: '#myFont'){
+	@font-face{
+		font-family: $fontFamily;
+		src: url($eotFileSrc) format('eot'),
+		url($woffFileSrc) format('woff'),
+		url($ttfFileSrc) format('ttf'),
+		url($svgFileSrc) format('svg'),
+	}
+	
+}
+
