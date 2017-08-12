@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="lib/datetimepicker/build/jquery.datetimepicker.min.css">
+</head>
+<body>
+	<div class="msg animated slideInDown">
+		<span class="msg-content"></span>
+		<button class="msg-button" type="button">知道啦</button>
+	</div>
+	<div class="container"> <!--总容器-->
+		<h1>我的Todo</h1>
+		<form class="add-task">
+			<input id="submitInput" name="content" type="text" placeholder="eg.下午记得买菜">
+			<button type="submit">submit</button>
+		</form>
+		<div class="task-list"><!--清单列表开始-->
+		</div><!--清单列表结束-->
+		<div class="task-detail-mask"></div>
+		<div class="task-detail"></div>
+	</div><!--总容器结束-->
+	<script src="lib/jquery/dist/jquery.min.js"></script>
+	<script src="lib/store/store.min.js"></script>
+	<script src="lib/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+	<script src="js/index.js"></script>
+</body>
+</html>
