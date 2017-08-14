@@ -35,8 +35,8 @@
 	}
 
 /**
- * [pop description]
- * @param  {[type]} arg [description]
+ * 制作异步系统确认对话框
+ * @param  {[type]} arg [确认信息对话框的标题]
  * @return {[type]}     [description]
  */
 	function pop(arg){
@@ -61,8 +61,8 @@
 			conf.title = arg;
 		else{
 			conf = $.extend(conf,arg);
-	}
-
+		}
+		//对话框模板
 		$box = $('<div class="pop-box">'
 			+'<div class="pop-title">'+ conf.title +'</div>'
 			+'<div class="pop-content">'
@@ -103,12 +103,12 @@
 
 		$confirm  = $box.find('.confirm');
 		$cancel  = $box.find('.cancel');
-
+		//当窗口变化时，重新设置对话框的位置
 		$window.on('resize',function(){
 			adjust_box_position();
 		})
 
-
+		//不断地监听用户是否点击某一按键，如果点击，对话框隐藏
 		timer = setInterval(function(){
 			if(confirmed !== undefined)
 			{
@@ -126,7 +126,7 @@
 		$box.appendTo($body);
 		$(window).resize();
 
-
+		//返回promise对象
 		return dfd.promise();
 
 
@@ -134,7 +134,10 @@
 			$mask.remove();
 			$box.remove();
 		}
-
+/**
+ * [adjust_box_position description]
+ * @return {[type]} [description]
+ */
 		function adjust_box_position() {
 
 		    var height = $window.height(),
@@ -166,10 +169,15 @@
 
 
 
-
+/**
+ * 定时提醒功能的核心方法
+ * 
+ * @return {[type]} [description]
+ */
 function task_remind_check(){
 	var current_timestamp,task_timestamp;
-	console.log("com");
+	//不断地将此刻的时间戳与定时时间戳进行比较  如果此刻时间戳大于定时时间戳，
+	//说明定时到了，该提醒了。
 	var itl = setInterval(function(){
 		for(var i = 0; i< taskList.length; i++){
 		var item = taskList[i];
@@ -186,10 +194,19 @@ function task_remind_check(){
 	},500);
 }
 
+/**
+ * 显示提醒消息
+ * @param  {[type]} msg [description]
+ * @return {[type]}     [description]
+ */
 function show_msg(msg){
 	$('.msg-content').html(msg).parent().show();
 }
 
+/**
+ * 隐藏提醒消息
+ * @return {[type]} [description]
+ */
 function hide_msg(){
 	console.log('hhh');
 	$('.msg-content').html('').parent().hide();
@@ -221,6 +238,7 @@ function hide_msg(){
 		$delete_task.on('click',function(){
 
 			var $item = $(this).parents('.task-item');
+			//异步处理函数 
 			pop('确定删除本宝宝吗？').then(function(rel){
 				rel ? delete_task(parseInt($item.data('index'))) : null;
 			})
@@ -247,6 +265,11 @@ function listenDetailClick($detail_task){
 	})
 }
 
+/**
+ * 监听单选按钮的变化，更新数据
+ * @param  {[type]} $checkboc_complete [要监听的单选按钮对象]
+ * @return {[type]}                    [description]
+ */
 function listenCheckBoxClick($checkboc_complete){
 	$checkboc_complete.on('click',function(){
 		var $this = $(this);
